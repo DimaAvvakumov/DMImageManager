@@ -72,6 +72,7 @@
     
     NSString *operationIdentifier = [NSString stringWithFormat: @"%p", cell];
     [[DMImageManager defaultManager] cancelBindingByIdentifier: operationIdentifier];
+    
     DMImageOperation *operation = [[DMImageOperation alloc] initWithImagePath:model.imagePath identifer:operationIdentifier andBlock:^(UIImage *image) {
         
         [cell.imageView setImage: image];

@@ -303,8 +303,23 @@
         thumbExt = @"jpg";
         thumbIsPng = NO;
     }
+    
+    // define file name
     NSString *thumbFile = [[_imagePath lastPathComponent] stringByDeletingPathExtension];
-    NSString *thumbFolder = [[_imagePath stringByDeletingLastPathComponent] stringByAppendingString: @"/_thumbs/"];
+    NSString *thumbFolder;
+    
+    // determinate image in cache or other directory
+    NSString *cacheDataPath = [DMImageOperation cacheDataPath];
+    NSRange range = [_imagePath rangeOfString: cacheDataPath];
+    if (range.location != NSNotFound) {
+        thumbFolder = [[_imagePath stringByDeletingLastPathComponent] stringByAppendingString: @"/_thumbs/"];
+    } else {
+        NSString *bundlePath = [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent];
+        NSString *safePath = [[_imagePath stringByDeletingLastPathComponent] stringByReplacingOccurrencesOfString:bundlePath withString:@""];
+        
+        thumbFolder = [NSString stringWithFormat:@"%@%@/_thumbs/", cacheDataPath, safePath];
+    }
+    
     float thumbWidth = _thumbSize.width;
     float thumbheight = _thumbSize.height;
     NSString *thumbPath = [NSString stringWithFormat: @"%@%@_%dx%d_%d.%@", thumbFolder, thumbFile, (int) thumbWidth, (int) thumbheight, (_cropThumb) ? 1 : 0, thumbExt];
@@ -397,6 +412,26 @@
     }
     
     return originalSize;
+}
+
++ (NSString *) cacheDataPath {
+    static NSString *path = nil;
+    if (!path) {
+        //cache folder
+        path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        
+#ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
+        
+        //append application bundle ID on Mac OS
+        NSString *identifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleIdentifierKey];
+        path = [path stringByAppendingPathComponent:identifier];
+        
+#endif
+        
+        //retain path
+        path = [[NSString alloc] initWithString:path];
+    }
+    return path;
 }
 
 @end

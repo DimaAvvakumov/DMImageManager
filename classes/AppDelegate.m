@@ -14,6 +14,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    NSString *path = [[[NSBundle mainBundle] bundlePath] stringByDeletingLastPathComponent];
+    
+    NSLog(@"%@", path);
+    
     [self parseInfo];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
