@@ -125,7 +125,7 @@
         }
         
         if (_successDownload == NO) {
-            DLog(@"remove file error: %@", _error);
+            NSLog(@"remove file error: %@", _error);
             
             [self finish];
             return;
