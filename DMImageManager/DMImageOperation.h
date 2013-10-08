@@ -10,8 +10,11 @@
 #import "AFNetworking.h"
 
 typedef void (^DMImageOperationCompetitionBlock)(UIImage *image);
+typedef void (^DMImageOperationProgressBlock)(NSNumber *progress);
 
 @interface DMImageOperation : NSOperation
+
+@property (nonatomic, copy) DMImageOperationProgressBlock progressBlock;
 
 @property (assign, nonatomic) CGSize thumbSize;
 @property (assign, nonatomic) BOOL cropThumb;

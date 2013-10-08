@@ -160,37 +160,7 @@
 
     UIImage *decodeImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
-//    CGImageRef originalImage = [image CGImage];
-//    if (originalImage == NULL) {
-//        [image release];
-//        return;
-//    }
-//    
-//    CFDataRef imageData = CGDataProviderCopyData(CGImageGetDataProvider(originalImage));
-//    CGDataProviderRef imageDataProvider = CGDataProviderCreateWithCFData(imageData);
-//    if (imageData != NULL) {
-//        CFRelease(imageData);
-//    }
-//    CGImageRef imageRef = CGImageCreate(CGImageGetWidth(originalImage),
-//                                        CGImageGetHeight(originalImage),
-//                                        CGImageGetBitsPerComponent(originalImage),
-//                                        CGImageGetBitsPerPixel(originalImage),
-//                                        CGImageGetBytesPerRow(originalImage),
-//                                        CGImageGetColorSpace(originalImage),
-//                                        CGImageGetBitmapInfo(originalImage),
-//                                        imageDataProvider,
-//                                        CGImageGetDecode(originalImage),
-//                                        CGImageGetShouldInterpolate(originalImage),
-//                                        CGImageGetRenderingIntent(originalImage));
-//    if (imageDataProvider != NULL) {
-//        CGDataProviderRelease(imageDataProvider);
-//    }
-//    
-//    UIImage *decodeImage = [[UIImage alloc] initWithCGImage: imageRef];
-//    CGImageRelease( imageRef );
-//    [image release];
-    
+
     if (_block && !_isCancelled) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             _block(decodeImage);
@@ -280,15 +250,14 @@
         self.whileDownloading = NO;
         self.successDownload = NO;
     }];
-//    if (_progressBlock) {
-//        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-//            downloadedSize += bytesRead;
-//            
-//            float progress = downloadedSize / (float) downloadTotalSize;
-//            
-//            _progressBlock([NSNumber numberWithFloat: progress]);
-//        }];
-//    }
+    if (_progressBlock) {
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            
+            double progress = totalBytesRead / (double) totalBytesExpectedToRead;
+            
+            _progressBlock([NSNumber numberWithDouble:progress]);
+        }];
+    }
     
     return operation;
 }

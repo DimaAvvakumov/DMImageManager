@@ -33,6 +33,8 @@
 		189EAD0F17A624A000F87CD2 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189EAD0E17A624A000F87CD2 /* MobileCoreServices.framework */; };
 		189EAD1117A624A500F87CD2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189EAD1017A624A500F87CD2 /* SystemConfiguration.framework */; };
 		189EAD1717A63A8800F87CD2 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EAD1617A63A8800F87CD2 /* StandardPaths.m */; };
+		18A625C81804715E00E4CDE9 /* SSDrawingUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A625C51804715E00E4CDE9 /* SSDrawingUtilities.m */; };
+		18A625C91804715E00E4CDE9 /* SSPieProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A625C71804715E00E4CDE9 /* SSPieProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,10 @@
 		189EAD1017A624A500F87CD2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		189EAD1517A63A8800F87CD2 /* StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardPaths.h; sourceTree = "<group>"; };
 		189EAD1617A63A8800F87CD2 /* StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardPaths.m; sourceTree = "<group>"; };
+		18A625C41804715E00E4CDE9 /* SSDrawingUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDrawingUtilities.h; sourceTree = "<group>"; };
+		18A625C51804715E00E4CDE9 /* SSDrawingUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDrawingUtilities.m; sourceTree = "<group>"; };
+		18A625C61804715E00E4CDE9 /* SSPieProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPieProgressView.h; sourceTree = "<group>"; };
+		18A625C71804715E00E4CDE9 /* SSPieProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPieProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +189,7 @@
 			children = (
 				189EAD1417A63A8800F87CD2 /* Categories */,
 				189EACF117A61F9500F87CD2 /* AFNetworking */,
+				18A625C31804715E00E4CDE9 /* SSToolkit */,
 			);
 			path = vendors;
 			sourceTree = "<group>";
@@ -220,6 +227,17 @@
 				189EAD1617A63A8800F87CD2 /* StandardPaths.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		18A625C31804715E00E4CDE9 /* SSToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				18A625C41804715E00E4CDE9 /* SSDrawingUtilities.h */,
+				18A625C51804715E00E4CDE9 /* SSDrawingUtilities.m */,
+				18A625C61804715E00E4CDE9 /* SSPieProgressView.h */,
+				18A625C71804715E00E4CDE9 /* SSPieProgressView.m */,
+			);
+			path = SSToolkit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,6 +310,7 @@
 				189EACD517A61A0E00F87CD2 /* ViewController.m in Sources */,
 				189EACE517A61A4900F87CD2 /* main.m in Sources */,
 				189EACE917A61C6B00F87CD2 /* AppModel.m in Sources */,
+				18A625C81804715E00E4CDE9 /* SSDrawingUtilities.m in Sources */,
 				189EACEE17A61D4D00F87CD2 /* DMImageManager.m in Sources */,
 				189EACEF17A61D4D00F87CD2 /* DMImageOperation.m in Sources */,
 				189EAD0517A61F9500F87CD2 /* AFHTTPClient.m in Sources */,
@@ -303,6 +322,7 @@
 				189EAD0B17A61F9500F87CD2 /* AFURLConnectionOperation.m in Sources */,
 				189EAD0C17A61F9500F87CD2 /* AFXMLRequestOperation.m in Sources */,
 				189EAD0D17A61F9500F87CD2 /* UIImageView+AFNetworking.m in Sources */,
+				18A625C91804715E00E4CDE9 /* SSPieProgressView.m in Sources */,
 				189EAD1717A63A8800F87CD2 /* StandardPaths.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

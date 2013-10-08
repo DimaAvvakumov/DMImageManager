@@ -70,17 +70,32 @@
     [cell.imageView setImage: [self placeholderImage]];
     [cell.imageView setAlpha: 0.0];
     
+    NSInteger pieTag = 22;
+    SSPieProgressView *pieProgress = (SSPieProgressView *) [cell.contentView viewWithTag: pieTag];
+    if (pieProgress == nil) {
+        pieProgress = [[SSPieProgressView alloc] initWithFrame: CGRectMake(10.0, 10.0, 40.0, 40.0)];
+        pieProgress.tag = 22;
+        
+        [cell.contentView addSubview:pieProgress];
+    }
+    pieProgress.progress = 0.0;
+    [pieProgress setHidden: NO];
+    
     NSString *operationIdentifier = [NSString stringWithFormat: @"%p", cell];
     [[DMImageManager defaultManager] cancelBindingByIdentifier: operationIdentifier];
     
     DMImageOperation *operation = [[DMImageOperation alloc] initWithImagePath:model.imagePath identifer:operationIdentifier andBlock:^(UIImage *image) {
         
         [cell.imageView setImage: image];
+        [pieProgress setHidden: YES];
         
         [UIView animateWithDuration:0.3 animations:^{
             [cell.imageView setAlpha: 1.0];
         }];
         
+    }];
+    [operation setProgressBlock:^(NSNumber *progress) {
+        [pieProgress setProgress: [progress floatValue]];
     }];
     [operation setDownloadURL: model.imageURL];
     [operation setThumbSize: CGSizeMake(ImageHeight, ImageHeight)];

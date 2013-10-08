@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SSPieProgressView.h"
 
 @interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
