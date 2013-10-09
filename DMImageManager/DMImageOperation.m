@@ -143,7 +143,6 @@
         }
     }
     
-    
     // warmup image
     UIImage *image = [[UIImage alloc] initWithContentsOfFile: warmupPath];
     if (image == nil) {
@@ -291,7 +290,8 @@
     
     float thumbWidth = _thumbSize.width;
     float thumbheight = _thumbSize.height;
-    NSString *thumbPath = [NSString stringWithFormat: @"%@%@_%dx%d_%d.%@", thumbFolder, thumbFile, (int) thumbWidth, (int) thumbheight, (_cropThumb) ? 1 : 0, thumbExt];
+    NSString *retinaSuffix = ([DMImageOperation isRetina]) ? @"@2x" : @"";
+    NSString *thumbPath = [NSString stringWithFormat: @"%@%@_%dx%d_%d%@.%@", thumbFolder, thumbFile, (int) thumbWidth, (int) thumbheight, (_cropThumb) ? 1 : 0, retinaSuffix, thumbExt];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:thumbPath]) {
         return thumbPath;
@@ -381,6 +381,22 @@
     }
     
     return originalSize;
+}
+
+#pragma mark - Inner helper function
+
++ (BOOL) isRetina {
+    static float scale = 0.0;
+    
+    if (scale == 0.0) {
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] && ([UIScreen mainScreen].scale == 2.0)) {
+            scale = 2.0;
+        } else {
+            scale = 1.0;
+        }
+    }
+    
+    return (scale == 2.0) ? YES : NO;
 }
 
 + (NSString *) cacheDataPath {
