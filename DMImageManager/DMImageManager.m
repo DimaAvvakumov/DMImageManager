@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSOperationQueue *queue;
 @property (strong, nonatomic) NSOperationQueue *downloadQueue;
 
+@property (strong, nonatomic) NSMutableDictionary *waitingForDownloadOperation;
+
 @end
 
 @implementation DMImageManager
@@ -34,6 +36,8 @@
         
         self.downloadQueue = [[NSOperationQueue alloc] init];
         [_downloadQueue setMaxConcurrentOperationCount: 1];
+        
+        self.waitingForDownloadOperation = [NSMutableDictionary dictionaryWithCapacity: 10];
     }
     return self;
 }
@@ -59,10 +63,28 @@
     
     operations = [_downloadQueue operations];
     for (int i = 0; i < [operations count]; i++) {
-        DMImageOperation *operation = [operations objectAtIndex: i];
+        DMImageDownloadOperation *downloadOperation = [operations objectAtIndex: i];
+        NSString *operationKey = [NSString stringWithFormat: @"%p", downloadOperation];
         
-        if ([[operation identifier] isEqualToString: identifier]) {
-            [operation cancel];
+        NSMutableSet *operationsList = [_waitingForDownloadOperation objectForKey: operationKey];
+        if (operationsList) {
+            NSArray *operationArray = [operationsList allObjects];
+            for (DMImageOperation *operationItem in operationArray) {
+                if ([[operationItem identifier] isEqualToString: identifier]) {
+                    [operationsList removeObject:operationItem];
+                }
+            }
+            
+            if ([operationsList count] == 0) {
+                [_waitingForDownloadOperation removeObjectForKey:operationKey];
+                operationsList = nil;
+            }
+        }
+        
+        if (operationsList == nil) {
+            [downloadOperation cancel];
+            
+            continue;
         }
     }
 }
@@ -74,13 +96,68 @@
         if ([operation imageExist]) {
             [_queue addOperation: operation];
         } else {
-            [_downloadQueue addOperation: operation];
+            [self putOperationToDownload: operation];
         }
     }
 }
 
 + (CGSize) resize: (CGSize) originalSize toSize: (CGSize) maxSize withCroping: (BOOL) cropImage {
     return [DMImageOperation resize:originalSize toSize:maxSize withCroping:cropImage];
+}
+
+- (DMImageDownloadOperation *) downloadOperationFromQueueByURL: (NSURL *) url {
+    NSString *identifier = [url absoluteString];
+    
+    NSArray *operations = [_downloadQueue operations];
+    for (int i = 0; i < [operations count]; i++) {
+        DMImageDownloadOperation *operation = [operations objectAtIndex: i];
+        
+        if ([[operation downloadIdentifier] isEqualToString: identifier]) {
+            return operation;
+        }
+    }
+    
+    return nil;
+}
+
+- (void) putOperationToDownload: (DMImageOperation *) operation {
+    NSString *operationKey;
+    
+    DMImageDownloadOperation *downloadOperation = [self downloadOperationFromQueueByURL: operation.downloadURL];
+    if (downloadOperation == nil) {
+        downloadOperation = [[DMImageDownloadOperation alloc] initWithImagePath:operation.path andDownloadURL:operation.downloadURL];
+        operationKey = [NSString stringWithFormat: @"%p", downloadOperation];
+        
+        [downloadOperation setCompetitionBlock:^(void) {
+            NSMutableSet *operationsList = [_waitingForDownloadOperation objectForKey: operationKey];
+            if (operationsList == nil) return;
+            
+            for (DMImageOperation *operationItem in operationsList) {
+                [_queue addOperation:operationItem];
+            }
+            
+            [_waitingForDownloadOperation removeObjectForKey:operationKey];
+        }];
+        [downloadOperation setProgressBlock:^(NSNumber *progress) {
+            NSMutableSet *operationsList = [_waitingForDownloadOperation objectForKey: operationKey];
+            if (operationsList == nil) return;
+            
+            for (DMImageOperation *operationItem in operationsList) {
+                operationItem.progressBlock( progress );
+            }
+        }];
+        
+        [_downloadQueue addOperation:downloadOperation];
+    } else {
+        operationKey = [NSString stringWithFormat: @"%p", downloadOperation];
+    }
+    
+    NSMutableSet *operationsList = [_waitingForDownloadOperation objectForKey: operationKey];
+    if (operationsList == nil) {
+        operationsList = [NSMutableSet setWithCapacity: 2];
+        [_waitingForDownloadOperation setObject: operationsList forKey: operationKey];
+    }
+    [operationsList addObject: operation];
 }
 
 @end

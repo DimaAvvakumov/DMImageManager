@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18109B5E1850E8CC000B5E1D /* DMImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */; };
 		189EACAC17A619AA00F87CD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189EACAB17A619AA00F87CD2 /* UIKit.framework */; };
 		189EACAE17A619AA00F87CD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189EACAD17A619AA00F87CD2 /* Foundation.framework */; };
 		189EACB017A619AA00F87CD2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189EACAF17A619AA00F87CD2 /* CoreGraphics.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18109B5C1850E8CC000B5E1D /* DMImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDownloadOperation.h; sourceTree = "<group>"; };
+		18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDownloadOperation.m; sourceTree = "<group>"; };
 		189EACA817A619AA00F87CD2 /* DMImageManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DMImageManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		189EACAB17A619AA00F87CD2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		189EACAD17A619AA00F87CD2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -139,6 +142,8 @@
 		189EACB117A619AA00F87CD2 /* DMImageManager */ = {
 			isa = PBXGroup;
 			children = (
+				18109B5C1850E8CC000B5E1D /* DMImageDownloadOperation.h */,
+				18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */,
 				189EACEA17A61D4D00F87CD2 /* DMImageManager.h */,
 				189EACEB17A61D4D00F87CD2 /* DMImageManager.m */,
 				189EACEC17A61D4D00F87CD2 /* DMImageOperation.h */,
@@ -314,6 +319,7 @@
 				189EACEE17A61D4D00F87CD2 /* DMImageManager.m in Sources */,
 				189EACEF17A61D4D00F87CD2 /* DMImageOperation.m in Sources */,
 				189EAD0517A61F9500F87CD2 /* AFHTTPClient.m in Sources */,
+				18109B5E1850E8CC000B5E1D /* DMImageDownloadOperation.m in Sources */,
 				189EAD0617A61F9500F87CD2 /* AFHTTPRequestOperation.m in Sources */,
 				189EAD0717A61F9500F87CD2 /* AFImageRequestOperation.m in Sources */,
 				189EAD0817A61F9500F87CD2 /* AFJSONRequestOperation.m in Sources */,
