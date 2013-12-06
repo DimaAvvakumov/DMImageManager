@@ -144,7 +144,9 @@
             if (operationsList == nil) return;
             
             for (DMImageOperation *operationItem in operationsList) {
-                operationItem.progressBlock( progress );
+                if (operationItem.progressBlock) {
+                    operationItem.progressBlock( progress );
+                }
             }
         }];
         [downloadOperation setFailureBlock:^(NSError *error) {
@@ -152,7 +154,9 @@
             if (operationsList == nil) return;
             
             for (DMImageOperation *operationItem in operationsList) {
-                operationItem.failureBlock( error );
+                if (operationItem.failureBlock) {
+                    operationItem.failureBlock( error );
+                }
             }
         }];
         
