@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "DMImageOperation.h"
-#import "DMImageDownloadOperation.h"
 
 @interface DMImageManager : NSObject
 

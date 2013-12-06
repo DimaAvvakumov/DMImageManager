@@ -7,6 +7,7 @@
 //
 
 #import "DMImageManager.h"
+#import "DMImageDownloadOperation.h"
 
 @interface DMImageManager ()
 

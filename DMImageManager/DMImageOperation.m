@@ -23,16 +23,9 @@
 @property (atomic, assign) BOOL successDownload;
 @property (strong, nonatomic) NSError *error;
 
-- (void) finish;
-
-- (AFHTTPRequestOperation *) operationForURL: (NSURL *) url;
-
 @end
 
 @implementation DMImageOperation
-@synthesize imagePath = _imagePath;
-@synthesize block = _block;
-@synthesize identifier = _identifier;
 
 - (id) initWithImagePath: (NSString *) imagePath identifer:(NSString *)identifier andBlock:(DMImageOperationCompetitionBlock)block {
     self = [super init];
@@ -89,48 +82,6 @@
     [self willChangeValueForKey:@"isExecuting"];
     _executing = YES;
     [self didChangeValueForKey:@"isExecuting"];
-    
-    // check download state
-    if ([[NSFileManager defaultManager] fileExistsAtPath: _imagePath] == NO) {
-        // file not exist and can`t be downloaded - finish
-        if (_imageUrlForDownload == nil) {
-            [self finish];
-            return;
-        }
-        
-        // try to download
-        self.whileDownloading = YES;
-        AFHTTPRequestOperation *operation = [self operationForURL: _imageUrlForDownload];
-        if (operation == nil) {
-            NSLog(@"DMImageManager error: %@", _error);
-            
-            [self finish];
-            return;
-        }
-        
-        [operation start];
-//        [operation waitUntilFinished];
-        
-        while (_whileDownloading) {
-            if (_isCancelled) {
-                [operation cancel];
-                [self finish];
-                return;
-            }
-            if ([operation isCancelled]) {
-                break;
-            }
-            
-            [NSThread sleepForTimeInterval: 0.1];
-        }
-        
-        if (_successDownload == NO) {
-            NSLog(@"remove file error: %@", _error);
-            
-            [self finish];
-            return;
-        }
-    }
     
     // check resize thumb
     NSString *warmupPath = _imagePath;
@@ -199,66 +150,6 @@
 
 - (BOOL) isFinished {
     return _finished;
-}
-
-- (AFHTTPRequestOperation *) operationForURL: (NSURL *) url {
-    NSURLRequest *request = [NSURLRequest requestWithURL:url
-                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                         timeoutInterval:30.0];
-    
-    NSString *destPath = _imagePath;
-    NSString *folder = [destPath stringByDeletingLastPathComponent];
-    
-    NSString *tmpPath = [destPath stringByAppendingString: @".tmp"];
-    
-    NSError *error = nil;
-    BOOL success = [[NSFileManager defaultManager] createDirectoryAtPath:folder withIntermediateDirectories:YES
-                                                              attributes:nil error:&error];
-    if (!success) {
-        self.error = error;
-        return nil;
-    }
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath: tmpPath append: NO];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSError *error = nil;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:destPath]) {
-            if (![[NSFileManager defaultManager] removeItemAtPath:destPath error:&error]) {
-                self.error = error;
-                
-                self.whileDownloading = NO;
-                self.successDownload = NO;
-                return;
-            }
-        }
-        
-        if (![[NSFileManager defaultManager] moveItemAtPath:tmpPath toPath:destPath error:&error]) {
-            self.error = error;
-            
-            self.whileDownloading = NO;
-            self.successDownload = NO;
-            return;
-        }
-        
-        self.whileDownloading = NO;
-        self.successDownload = YES;
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.error = error;
-        
-        self.whileDownloading = NO;
-        self.successDownload = NO;
-    }];
-    if (_progressBlock) {
-        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            
-            double progress = totalBytesRead / (double) totalBytesExpectedToRead;
-            
-            _progressBlock([NSNumber numberWithDouble:progress]);
-        }];
-    }
-    
-    return operation;
 }
 
 - (NSString *) thumbImagePath {
