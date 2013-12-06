@@ -147,6 +147,14 @@
                 operationItem.progressBlock( progress );
             }
         }];
+        [downloadOperation setFailureBlock:^(NSError *error) {
+            NSMutableSet *operationsList = [_waitingForDownloadOperation objectForKey: operationKey];
+            if (operationsList == nil) return;
+            
+            for (DMImageOperation *operationItem in operationsList) {
+                operationItem.failureBlock( error );
+            }
+        }];
         
         [_downloadQueue addOperation:downloadOperation];
     } else {

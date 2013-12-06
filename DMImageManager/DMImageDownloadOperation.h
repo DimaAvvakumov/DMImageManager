@@ -11,11 +11,13 @@
 
 typedef void (^DMImageDownloadOperationCompetitionBlock)();
 typedef void (^DMImageDownloadOperationProgressBlock)(NSNumber *progress);
+typedef void (^DMImageDownloadOperationFailureBlock)(NSError *error);
 
 @interface DMImageDownloadOperation : NSOperation
 
 @property (nonatomic, copy) DMImageDownloadOperationCompetitionBlock competitionBlock;
 @property (nonatomic, copy) DMImageDownloadOperationProgressBlock progressBlock;
+@property (nonatomic, copy) DMImageDownloadOperationFailureBlock failureBlock;
 
 - (id) initWithImagePath: (NSString *) imagePath andDownloadURL: (NSURL *) downloadURL;
 

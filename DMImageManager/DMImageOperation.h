@@ -11,10 +11,12 @@
 
 typedef void (^DMImageOperationCompetitionBlock)(UIImage *image);
 typedef void (^DMImageOperationProgressBlock)(NSNumber *progress);
+typedef void (^DMImageOperationFailureBlock)(NSError *error);
 
 @interface DMImageOperation : NSOperation
 
 @property (nonatomic, copy) DMImageOperationProgressBlock progressBlock;
+@property (nonatomic, copy) DMImageOperationFailureBlock failureBlock;
 
 @property (assign, nonatomic) CGSize thumbSize;
 @property (assign, nonatomic) BOOL cropThumb;

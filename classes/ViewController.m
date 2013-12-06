@@ -24,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self placeholderImage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,6 +98,11 @@
     [operation setProgressBlock:^(NSNumber *progress) {
         [pieProgress setProgress: [progress floatValue]];
     }];
+    [operation setFailureBlock:^(NSError *error) {
+        [cell.imageView setImage: _phImage];
+        [cell.imageView setAlpha: 1.0];
+        [pieProgress setHidden: YES];
+    }];
     [operation setDownloadURL: model.imageURL];
     [operation setThumbSize: CGSizeMake(ImageHeight, ImageHeight)];
     [[DMImageManager defaultManager] addOperation: operation];
@@ -110,6 +116,9 @@
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(ImageHeight, ImageHeight), NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+    
+    CGContextSetFillColorWithColor(context, [UIColor redColor].CGColor);
+    CGContextFillRect(context, CGRectMake(0.0, 0.0, ImageHeight, ImageHeight));
     
     self.phImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

@@ -102,6 +102,12 @@
     if (_successDownload == NO) {
         NSLog(@"remove file error: %@", _error);
         
+        if (_failureBlock) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                _failureBlock(_error);
+            });
+        }
+
         [self finish];
         return;
     }
