@@ -112,11 +112,23 @@
 
     UIImage *decodeImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
+    // cancel check
+    if (_isCancelled) {
+        [self finish];
+        return;
+    }
+    
     // processing
     UIImage *processingImage = nil;
     if (_processingBlock) {
         processingImage = _processingBlock(decodeImage);
+    }
+    
+    // cancel check
+    if (_isCancelled) {
+        [self finish];
+        return;
     }
     
     // return image
