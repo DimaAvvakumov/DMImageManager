@@ -18,6 +18,7 @@
     #import "DMImageManager.h"
 
     #import "StandardPaths.h"
+    #import "UIImage+ImageEffects.h"
 
     #import "AppModel.h"
 #endif

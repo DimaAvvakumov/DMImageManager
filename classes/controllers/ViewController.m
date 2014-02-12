@@ -95,9 +95,15 @@
         }];
         
     }];
-    [operation setProgressBlock:^(NSNumber *progress) {
+    operation.progressBlock = ^(NSNumber *progress) {
         [pieProgress setProgress: [progress floatValue]];
-    }];
+    };
+    operation.processingBlock = ^UIImage*(UIImage *image) {
+        UIImage *decodeImage = nil;
+        // decodeImage = [image applyLightEffect];
+        
+        return decodeImage;
+    };
     [operation setFailureBlock:^(NSError *error) {
         [cell.imageView setImage: _phImage];
         [cell.imageView setAlpha: 1.0];

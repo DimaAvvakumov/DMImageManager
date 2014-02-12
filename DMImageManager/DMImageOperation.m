@@ -45,6 +45,8 @@
         
         self.thumbSize = CGSizeZero;
         self.cropThumb = NO;
+        
+        self.returnPostprocessingImage = YES;
     }
     return self;
 }
@@ -111,6 +113,16 @@
     UIImage *decodeImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
+    // processing
+    UIImage *processingImage = nil;
+    if (_processingBlock) {
+        processingImage = _processingBlock(decodeImage);
+    }
+    
+    // return image
+    if (processingImage && _returnPostprocessingImage) {
+        decodeImage = processingImage;
+    }
     if (_block && !_isCancelled) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             _block(decodeImage);
