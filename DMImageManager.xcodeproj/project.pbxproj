@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18109B5E1850E8CC000B5E1D /* DMImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */; };
-		1815681D18EDE88F00CD9E12 /* DMImageCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */; };
+		1815682318EE7EA000CD9E12 /* DMImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815682018EE7EA000CD9E12 /* DMImageDownloadOperation.m */; };
+		1815682418EE7EA000CD9E12 /* DMImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815682218EE7EA000CD9E12 /* DMImageOperation.m */; };
+		1815682818EE7EBA00CD9E12 /* DMImageCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815682718EE7EBA00CD9E12 /* DMImageCacheManager.m */; };
 		1822A35C18AB746E000F6AB8 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A35B18AB746E000F6AB8 /* StandardPaths.m */; };
 		1822A35F18AB748E000F6AB8 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A35E18AB748E000F6AB8 /* UIImage+ImageEffects.m */; };
 		1822A36318AB74B1000F6AB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A36218AB74B1000F6AB8 /* AppDelegate.m */; };
@@ -25,7 +26,6 @@
 		189EACE517A61A4900F87CD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACDF17A61A4900F87CD2 /* main.m */; };
 		189EACE917A61C6B00F87CD2 /* AppModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACE817A61C6B00F87CD2 /* AppModel.m */; };
 		189EACEE17A61D4D00F87CD2 /* DMImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACEB17A61D4D00F87CD2 /* DMImageManager.m */; };
-		189EACEF17A61D4D00F87CD2 /* DMImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACED17A61D4D00F87CD2 /* DMImageOperation.m */; };
 		189EAD0517A61F9500F87CD2 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACF317A61F9500F87CD2 /* AFHTTPClient.m */; };
 		189EAD0617A61F9500F87CD2 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACF517A61F9500F87CD2 /* AFHTTPRequestOperation.m */; };
 		189EAD0717A61F9500F87CD2 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 189EACF717A61F9500F87CD2 /* AFImageRequestOperation.m */; };
@@ -42,10 +42,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		18109B5C1850E8CC000B5E1D /* DMImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDownloadOperation.h; sourceTree = "<group>"; };
-		18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDownloadOperation.m; sourceTree = "<group>"; };
-		1815681B18EDE88F00CD9E12 /* DMImageCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCacheManager.h; sourceTree = "<group>"; };
-		1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCacheManager.m; sourceTree = "<group>"; };
+		1815681F18EE7EA000CD9E12 /* DMImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDownloadOperation.h; sourceTree = "<group>"; };
+		1815682018EE7EA000CD9E12 /* DMImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDownloadOperation.m; sourceTree = "<group>"; };
+		1815682118EE7EA000CD9E12 /* DMImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageOperation.h; sourceTree = "<group>"; };
+		1815682218EE7EA000CD9E12 /* DMImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageOperation.m; sourceTree = "<group>"; };
+		1815682618EE7EBA00CD9E12 /* DMImageCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCacheManager.h; sourceTree = "<group>"; };
+		1815682718EE7EBA00CD9E12 /* DMImageCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCacheManager.m; sourceTree = "<group>"; };
 		1822A35A18AB746E000F6AB8 /* StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardPaths.h; sourceTree = "<group>"; };
 		1822A35B18AB746E000F6AB8 /* StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardPaths.m; sourceTree = "<group>"; };
 		1822A35D18AB748E000F6AB8 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -72,8 +74,6 @@
 		189EACE817A61C6B00F87CD2 /* AppModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppModel.m; sourceTree = "<group>"; };
 		189EACEA17A61D4D00F87CD2 /* DMImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageManager.h; sourceTree = "<group>"; };
 		189EACEB17A61D4D00F87CD2 /* DMImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageManager.m; sourceTree = "<group>"; };
-		189EACEC17A61D4D00F87CD2 /* DMImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageOperation.h; sourceTree = "<group>"; };
-		189EACED17A61D4D00F87CD2 /* DMImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageOperation.m; sourceTree = "<group>"; };
 		189EACF217A61F9500F87CD2 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		189EACF317A61F9500F87CD2 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		189EACF417A61F9500F87CD2 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -118,6 +118,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1815681E18EE7EA000CD9E12 /* operations */ = {
+			isa = PBXGroup;
+			children = (
+				1815681F18EE7EA000CD9E12 /* DMImageDownloadOperation.h */,
+				1815682018EE7EA000CD9E12 /* DMImageDownloadOperation.m */,
+				1815682118EE7EA000CD9E12 /* DMImageOperation.h */,
+				1815682218EE7EA000CD9E12 /* DMImageOperation.m */,
+			);
+			path = operations;
+			sourceTree = "<group>";
+		};
+		1815682518EE7EBA00CD9E12 /* cacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				1815682618EE7EBA00CD9E12 /* DMImageCacheManager.h */,
+				1815682718EE7EBA00CD9E12 /* DMImageCacheManager.m */,
+			);
+			path = cacheManager;
+			sourceTree = "<group>";
+		};
 		1822A35918AB746E000F6AB8 /* categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,14 +204,10 @@
 		189EACB117A619AA00F87CD2 /* DMImageManager */ = {
 			isa = PBXGroup;
 			children = (
-				18109B5C1850E8CC000B5E1D /* DMImageDownloadOperation.h */,
-				18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */,
+				1815682518EE7EBA00CD9E12 /* cacheManager */,
+				1815681E18EE7EA000CD9E12 /* operations */,
 				189EACEA17A61D4D00F87CD2 /* DMImageManager.h */,
 				189EACEB17A61D4D00F87CD2 /* DMImageManager.m */,
-				189EACEC17A61D4D00F87CD2 /* DMImageOperation.h */,
-				189EACED17A61D4D00F87CD2 /* DMImageOperation.m */,
-				1815681B18EDE88F00CD9E12 /* DMImageCacheManager.h */,
-				1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */,
 			);
 			path = DMImageManager;
 			sourceTree = "<group>";
@@ -347,14 +363,13 @@
 				189EACE517A61A4900F87CD2 /* main.m in Sources */,
 				189EACE917A61C6B00F87CD2 /* AppModel.m in Sources */,
 				18A625C81804715E00E4CDE9 /* SSDrawingUtilities.m in Sources */,
-				1815681D18EDE88F00CD9E12 /* DMImageCacheManager.m in Sources */,
+				1815682818EE7EBA00CD9E12 /* DMImageCacheManager.m in Sources */,
 				189EACEE17A61D4D00F87CD2 /* DMImageManager.m in Sources */,
-				189EACEF17A61D4D00F87CD2 /* DMImageOperation.m in Sources */,
 				1822A35C18AB746E000F6AB8 /* StandardPaths.m in Sources */,
 				189EAD0517A61F9500F87CD2 /* AFHTTPClient.m in Sources */,
-				18109B5E1850E8CC000B5E1D /* DMImageDownloadOperation.m in Sources */,
 				189EAD0617A61F9500F87CD2 /* AFHTTPRequestOperation.m in Sources */,
 				189EAD0717A61F9500F87CD2 /* AFImageRequestOperation.m in Sources */,
+				1815682318EE7EA000CD9E12 /* DMImageDownloadOperation.m in Sources */,
 				189EAD0817A61F9500F87CD2 /* AFJSONRequestOperation.m in Sources */,
 				189EAD0917A61F9500F87CD2 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				189EAD0A17A61F9500F87CD2 /* AFPropertyListRequestOperation.m in Sources */,
@@ -364,6 +379,7 @@
 				189EAD0D17A61F9500F87CD2 /* UIImageView+AFNetworking.m in Sources */,
 				18A625C91804715E00E4CDE9 /* SSPieProgressView.m in Sources */,
 				1822A36318AB74B1000F6AB8 /* AppDelegate.m in Sources */,
+				1815682418EE7EA000CD9E12 /* DMImageOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
