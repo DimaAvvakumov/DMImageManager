@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) NSMutableDictionary *waitingForDownloadOperation;
 
+@property (strong, nonatomic) NSMutableDictionary *cacheManagers;
+
 @end
 
 @implementation DMImageManager
@@ -39,6 +41,8 @@
         [_downloadQueue setMaxConcurrentOperationCount: 1];
         
         self.waitingForDownloadOperation = [NSMutableDictionary dictionaryWithCapacity: 10];
+        
+        self.cacheManagers = [NSMutableDictionary dictionaryWithCapacity: 10];
     }
     return self;
 }
@@ -49,7 +53,7 @@
     DMImageOperation *operation = [[DMImageOperation alloc] initWithImagePath: path
                                                                         identifer: identifier
                                                                          andBlock: block];
-    [_queue addOperation: operation];
+    [self putOperationToWarmup:operation];
 }
 
 - (void) cancelBindingByIdentifier: (NSString *) identifier {
@@ -92,10 +96,10 @@
 
 - (void) addOperation: (DMImageOperation *) operation {
     if (operation.downloadURL == nil) {
-        [_queue addOperation: operation];
+        [self putOperationToWarmup:operation];
     } else {
         if ([operation imageExist]) {
-            [_queue addOperation: operation];
+            [self putOperationToWarmup:operation];
         } else {
             [self putOperationToDownload: operation];
         }
@@ -134,7 +138,7 @@
             if (operationsList == nil) return;
             
             for (DMImageOperation *operationItem in operationsList) {
-                [_queue addOperation:operationItem];
+                [self putOperationToWarmup:operationItem];
             }
             
             [_waitingForDownloadOperation removeObjectForKey:operationKey];
@@ -171,6 +175,41 @@
         [_waitingForDownloadOperation setObject: operationsList forKey: operationKey];
     }
     [operationsList addObject: operation];
+}
+
+- (void) putOperationToWarmup: (DMImageOperation *) operation {
+    if (operation.cacheImage) {
+        operation.cacheManager = [self cacheManagerWithName:operation.cacheName];
+    }
+    
+    [_queue addOperation:operation];
+}
+
+#pragma mark - Cached methods
+
+- (DMImageCacheManager *) cacheManagerWithName: (NSString *) name {
+    DMImageCacheManager *cacheManager = [_cacheManagers objectForKey: name];
+    if (cacheManager == nil) {
+        cacheManager = [[DMImageCacheManager alloc] init];
+        
+        [_cacheManagers setObject:cacheManager forKey:name];
+    }
+    
+    return cacheManager;
+}
+
+- (void) clearCacheManagerWithName: (NSString *) name {
+    DMImageCacheManager *cacheManager = [self cacheManagerWithName: name];
+    if (cacheManager) {
+        [cacheManager clearCachedImages];
+    }
+}
+
+- (void) clearAllCacheManagers {
+    for (NSString *name in _cacheManagers) {
+        DMImageCacheManager *cacheManager = [_cacheManagers objectForKey:name];
+        [cacheManager clearCachedImages];
+    }
 }
 
 @end

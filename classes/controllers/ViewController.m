@@ -11,6 +11,8 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 
+#define ViewController_ImageCacheKey @"ListCache"
+
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -22,6 +24,11 @@
 
 @implementation ViewController
 
+- (void) dealloc {
+    DMImageCacheManager *cacheManager = [[DMImageManager defaultManager] cacheManagerWithName:ViewController_ImageCacheKey];
+    [cacheManager clearCachedImages];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -30,7 +37,9 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    // clear all cached images
+    [[DMImageManager defaultManager] clearAllCacheManagers];
 }
 
 - (void)viewDidUnload {
@@ -82,36 +91,52 @@
     pieProgress.progress = 0.0;
     [pieProgress setHidden: NO];
     
+    // in this case we cancelling previos operation, binding to this cell
     NSString *operationIdentifier = [NSString stringWithFormat: @"%p", cell];
     [[DMImageManager defaultManager] cancelBindingByIdentifier: operationIdentifier];
-    
-    DMImageOperation *operation = [[DMImageOperation alloc] initWithImagePath:model.imagePath identifer:operationIdentifier andBlock:^(UIImage *image) {
-        
-        [cell.imageView setImage: image];
-        [pieProgress setHidden: YES];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            [cell.imageView setAlpha: 1.0];
-        }];
-        
-    }];
-    operation.progressBlock = ^(NSNumber *progress) {
-        [pieProgress setProgress: [progress floatValue]];
-    };
-    operation.processingBlock = ^UIImage*(UIImage *image) {
-        UIImage *decodeImage = nil;
-        // decodeImage = [image applyLightEffect];
-        
-        return decodeImage;
-    };
-    [operation setFailureBlock:^(NSError *error) {
-        [cell.imageView setImage: _phImage];
+
+    // check cached image
+    NSString *cacheSuffix = @"cropped";
+    DMImageCacheManager *cacheManager = [[DMImageManager defaultManager] cacheManagerWithName:ViewController_ImageCacheKey];
+    UIImage *cacheImage = [cacheManager cachedImageWithPath:model.imagePath andSuffix:cacheSuffix];
+    if (cacheImage) {
         [cell.imageView setAlpha: 1.0];
+        [cell.imageView setImage: cacheImage];
         [pieProgress setHidden: YES];
-    }];
-    [operation setDownloadURL: model.imageURL];
-    [operation setThumbSize: CGSizeMake(ImageHeight, ImageHeight)];
-    [[DMImageManager defaultManager] addOperation: operation];
+    } else {
+        // create new operation
+        DMImageOperation *operation = [[DMImageOperation alloc] initWithImagePath:model.imagePath identifer:operationIdentifier andBlock:^(UIImage *image) {
+            
+            [cell.imageView setImage: image];
+            [pieProgress setHidden: YES];
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [cell.imageView setAlpha: 1.0];
+            }];
+            
+        }];
+        operation.progressBlock = ^(NSNumber *progress) {
+            [pieProgress setProgress: [progress floatValue]];
+        };
+        operation.processingBlock = ^UIImage*(UIImage *image) {
+            UIImage *decodeImage = nil;
+            // decodeImage = [image applyLightEffect];
+            
+            return decodeImage;
+        };
+        [operation setFailureBlock:^(NSError *error) {
+            [cell.imageView setImage: _phImage];
+            [cell.imageView setAlpha: 1.0];
+            [pieProgress setHidden: YES];
+        }];
+        [operation setDownloadURL: model.imageURL];
+        [operation setThumbSize: CGSizeMake(ImageHeight, ImageHeight)];
+        operation.cacheImage = YES;
+        operation.cacheName = ViewController_ImageCacheKey;
+        operation.cacheSuffix = cacheSuffix;
+        
+        [[DMImageManager defaultManager] addOperation: operation];
+    }
     
     return cell;
 }

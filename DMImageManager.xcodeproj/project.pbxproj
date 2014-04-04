@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18109B5E1850E8CC000B5E1D /* DMImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */; };
+		1815681D18EDE88F00CD9E12 /* DMImageCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */; };
 		1822A35C18AB746E000F6AB8 /* StandardPaths.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A35B18AB746E000F6AB8 /* StandardPaths.m */; };
 		1822A35F18AB748E000F6AB8 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A35E18AB748E000F6AB8 /* UIImage+ImageEffects.m */; };
 		1822A36318AB74B1000F6AB8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1822A36218AB74B1000F6AB8 /* AppDelegate.m */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		18109B5C1850E8CC000B5E1D /* DMImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageDownloadOperation.h; sourceTree = "<group>"; };
 		18109B5D1850E8CC000B5E1D /* DMImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageDownloadOperation.m; sourceTree = "<group>"; };
+		1815681B18EDE88F00CD9E12 /* DMImageCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMImageCacheManager.h; sourceTree = "<group>"; };
+		1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMImageCacheManager.m; sourceTree = "<group>"; };
 		1822A35A18AB746E000F6AB8 /* StandardPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StandardPaths.h; sourceTree = "<group>"; };
 		1822A35B18AB746E000F6AB8 /* StandardPaths.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandardPaths.m; sourceTree = "<group>"; };
 		1822A35D18AB748E000F6AB8 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				189EACEB17A61D4D00F87CD2 /* DMImageManager.m */,
 				189EACEC17A61D4D00F87CD2 /* DMImageOperation.h */,
 				189EACED17A61D4D00F87CD2 /* DMImageOperation.m */,
+				1815681B18EDE88F00CD9E12 /* DMImageCacheManager.h */,
+				1815681C18EDE88F00CD9E12 /* DMImageCacheManager.m */,
 			);
 			path = DMImageManager;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 				189EACE517A61A4900F87CD2 /* main.m in Sources */,
 				189EACE917A61C6B00F87CD2 /* AppModel.m in Sources */,
 				18A625C81804715E00E4CDE9 /* SSDrawingUtilities.m in Sources */,
+				1815681D18EDE88F00CD9E12 /* DMImageCacheManager.m in Sources */,
 				189EACEE17A61D4D00F87CD2 /* DMImageManager.m in Sources */,
 				189EACEF17A61D4D00F87CD2 /* DMImageOperation.m in Sources */,
 				1822A35C18AB746E000F6AB8 /* StandardPaths.m in Sources */,

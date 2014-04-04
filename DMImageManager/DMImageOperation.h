@@ -25,6 +25,14 @@ typedef UIImage * (^DMImageOperationProcessingBlock)(UIImage *image);
 
 @property (assign, nonatomic) BOOL returnPostprocessingImage;
 
+#pragma mark - Cache properties
+
+@property (assign, nonatomic) BOOL cacheImage; // NO
+@property (strong, nonatomic) NSString *cacheName; // @"default"
+@property (strong, nonatomic) NSString *cacheSuffix; // nill
+
+@property (strong, nonatomic) DMImageCacheManager *cacheManager;
+
 - (id) initWithImagePath: (NSString *) imagePath identifer: (NSString *) identifier andBlock: (DMImageOperationCompetitionBlock) block;
 
 - (NSString *) path;

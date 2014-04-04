@@ -47,6 +47,14 @@
         self.cropThumb = NO;
         
         self.returnPostprocessingImage = YES;
+        
+        #pragma mark - Cache properties
+        
+        self.cacheImage = NO;
+        self.cacheName = @"default";
+        self.cacheSuffix = nil;
+        
+        self.cacheManager = nil;
     }
     return self;
 }
@@ -131,10 +139,19 @@
         return;
     }
     
-    // return image
+    // replace image to processing image if needed
     if (processingImage && _returnPostprocessingImage) {
         decodeImage = processingImage;
     }
+    
+    // cache image if needed
+    if (_cacheImage && _cacheManager) {
+        DMImageCacheManager *cacheManager = _cacheManager;
+        
+        [cacheManager addToCacheImage:decodeImage withPath:_imagePath andSuffix:_cacheSuffix];
+    }
+    
+    // return image
     if (_block && !_isCancelled) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             _block(decodeImage);

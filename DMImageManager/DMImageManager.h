@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DMImageCacheManager.h"
 #import "DMImageOperation.h"
+
 
 @interface DMImageManager : NSObject
 
@@ -21,5 +23,11 @@
 - (void) addOperation: (DMImageOperation *) operation;
 
 + (CGSize) resize: (CGSize) originalSize toSize: (CGSize) maxSize withCroping: (BOOL) cropImage;
+
+#pragma mark - Cached methods
+
+- (DMImageCacheManager *) cacheManagerWithName: (NSString *) name;
+- (void) clearCacheManagerWithName: (NSString *) name;
+- (void) clearAllCacheManagers;
 
 @end
