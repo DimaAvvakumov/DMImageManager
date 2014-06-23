@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EE8A3F05-7751-4E88-BA01-4CC317089600</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DMImageManager</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3417E845-AEE6-4366-B832-9D0C9E54D58A</key>
+		<string>ssh://github.com/DimaAvvakumov/DMImageManager.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DMImageManager.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3417E845-AEE6-4366-B832-9D0C9E54D58A</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/DimaAvvakumov/DMImageManager.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3417E845-AEE6-4366-B832-9D0C9E54D58A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3417E845-AEE6-4366-B832-9D0C9E54D58A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DMImageManager</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -53,13 +53,12 @@
 #pragma mark - Parse
 
 - (void) parseInfo {
-    NSURL *url = [NSURL URLWithString: @"http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=75/json"];
+    NSString *url = @"http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=75/json";
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:url
-                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
-                                         timeoutInterval:30.0];
-    
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        
+        NSLog(@"JSON: %@", JSON);
         
         #pragma mark parse entity
         NSDictionary *feed = [JSON objectForKey: @"feed"];
@@ -92,14 +91,63 @@
         
         [_viewController reloadData];
         
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message: @"Pleace, check you internet connection" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Повторить", nil];
         [alert setTag: 1];
         [alert show];
     }];
     
-    [operation start];
+    
+//    NSURL *url = [NSURL URLWithString: ];
+//    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url
+//                                             cachePolicy:NSURLRequestReloadIgnoringCacheData
+//                                         timeoutInterval:30.0];
+//    
+//    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+//        
+//        #pragma mark parse entity
+//        NSDictionary *feed = [JSON objectForKey: @"feed"];
+//        if (!feed) return;
+//        
+//        NSArray *items = [feed objectForKey: @"entry"];
+//        if (!items) return;
+//        
+//        self.appItems = [NSMutableArray arrayWithCapacity: [items count]];
+//        
+//        for (NSDictionary *itemInfo in items) {
+//            NSString *title = [[itemInfo objectForKey: @"im:name"] objectForKey: @"label"];
+//            
+//            NSArray *images = [itemInfo objectForKey: @"im:image"];
+//            NSString *imageSmallPath = [[images objectAtIndex: 0] objectForKey: @"label"];
+//            
+//            NSString *imageBigPath = [imageSmallPath stringByReplacingOccurrencesOfString:@"53x53-50" withString:@"512x512-75"];
+//            
+//            NSString *imageSafePath = [imageBigPath stringByReplacingOccurrencesOfString:@"http://" withString:@""];
+//            NSString *imagePath = [[[NSFileManager defaultManager] cacheDataPath] stringByAppendingPathComponent: imageSafePath];
+//            
+//            AppModel *model = [[AppModel alloc] init];
+//            model.name = title;
+//            model.imagePath = imagePath;
+//            model.imageURL = [NSURL URLWithString: imageBigPath];
+//            
+//            // add to array
+//            [_appItems addObject: model];
+//        }
+//        
+//        [_viewController reloadData];
+//        
+//    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+//        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message: @"Pleace, check you internet connection" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Повторить", nil];
+//        [alert setTag: 1];
+//        [alert show];
+//    }];
+//    
+//    [operation start];
 }
 
 #pragma mark - UIAlertViewDelegate
